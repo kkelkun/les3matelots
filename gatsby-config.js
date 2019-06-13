@@ -42,7 +42,7 @@ module.exports = {
       // - Add the plugin
       options: {
         stylesProvider: {
-          injectFirst: true,
+          injectFirst: false,
         },
       },
       // 'gatsby-plugin-styled-components',
