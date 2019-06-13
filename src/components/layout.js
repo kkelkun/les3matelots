@@ -45,56 +45,54 @@ class Layout extends Component {
     }
   }
   render() {
-    if (this.props.viewTitles) {
-      const { viewTitles } = this.props
+    const viewTitles = this.props.viewTitles || null
 
-      const tabs = viewTitles.map(({ title }) => <Tab label={title} />)
-      return (
-        <StaticQuery
-          query={graphql`
-            query SiteTitleQuery {
-              site {
-                siteMetadata {
-                  title
-                }
+    const tabs = viewTitles.map(({ title }) => <Tab label={title} />)
+    return (
+      <StaticQuery
+        query={graphql`
+          query SiteTitleQuery {
+            site {
+              siteMetadata {
+                title
               }
             }
-          `}
-          render={data => (
-            <>
-              <Header
-                siteTitle={data.site.siteMetadata.title}
-                handleTrigger={this.handleTrigger}
+          }
+        `}
+        render={data => (
+          <>
+            <Header
+              siteTitle={data.site.siteMetadata.title}
+              handleTrigger={this.handleTrigger}
+            >
+              <Tabs
+                value={this.state.value}
+                onChange={this.handleChange}
+                indicatorColor={this.state.trigger ? "primary" : "secondary"}
+                textColor="primary"
+                variant="fullWidth"
               >
-                <Tabs
-                  value={this.state.value}
-                  onChange={this.handleChange}
-                  indicatorColor={this.state.trigger ? "primary" : "secondary"}
-                  textColor="primary"
-                  variant="fullWidth"
-                >
-                  {tabs}
-                </Tabs>
-              </Header>
+                {tabs}
+              </Tabs>
+            </Header>
 
-              <Parallax>
-                <Carousel />
-              </Parallax>
+            <Parallax>
+              <Carousel />
+            </Parallax>
 
-              <StyledSwipeableViews
-                axis="x"
-                index={this.state.value}
-                onChangeIndex={this.handleChangeIndex}
-              >
-                {this.props.children}
-              </StyledSwipeableViews>
+            <StyledSwipeableViews
+              axis="x"
+              index={this.state.value}
+              onChangeIndex={this.handleChangeIndex}
+            >
+              {this.props.children}
+            </StyledSwipeableViews>
 
-              <Footer />
-            </>
-          )}
-        />
-      )
-    }
+            <Footer />
+          </>
+        )}
+      />
+    )
   }
 }
 
