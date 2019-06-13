@@ -45,9 +45,11 @@ class Layout extends Component {
     }
   }
   render() {
-    const viewTitles = this.props.viewTitles || null
+    const { viewTitles } = this.props
 
-    const tabs = viewTitles.map(({ title }) => <Tab label={title} />)
+    const tabs = viewTitles
+      ? viewTitles.map(({ title }) => <Tab label={title} />)
+      : null
     return (
       <StaticQuery
         query={graphql`
